@@ -8,7 +8,7 @@
       <link href="2020/11/08/hexo-github-ming-ling-cao-zuo/"/>
       <url>2020/11/08/hexo-github-ming-ling-cao-zuo/</url>
       
-        <content type="html"><![CDATA[<h1 id="Hexo-github命令操作"><a href="#Hexo-github命令操作" class="headerlink" title="Hexo+github命令操作"></a>Hexo+github命令操作</h1><p>常用操作：</p><pre><code>hexo new "postName" #新建文章hexo new page "pageName" #新建页面hexo generate #生成静态页面至public目录hexo server #开启预览访问端口（默认端口4000，'ctrl + c'关闭server）hexo deploy #部署到GitHubhexo help  # 查看帮助hexo version  #查看Hexo的版本</code></pre><p>缩写：</p><pre><code>hexo n == hexo newhexo g == hexo generatehexo s == hexo serverhexo d == hexo deploy</code></pre><p>组合命令：</p><pre><code>hexo s -g #生成并本地预览hexo d -g #生成并上传</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Hexo-github命令操作"><a href="#Hexo-github命令操作" class="headerlink" title="Hexo+github命令操作"></a>Hexo+github命令操作</h1><p>为免自己忘记一些命令操作，将记录一些常用的操作：</p><pre><code>hexo new "postName" #新建文章hexo new page "pageName" #新建页面hexo generate #生成静态页面至public目录hexo server #开启预览访问端口（默认端口4000，'ctrl + c'关闭server）hexo deploy #部署到GitHubhexo help  # 查看帮助hexo version  #查看Hexo的版本</code></pre><p>缩写：</p><pre><code>hexo n == hexo newhexo g == hexo generatehexo s == hexo serverhexo d == hexo deploy</code></pre><p>组合命令：</p><pre><code>hexo s -g #生成并本地预览hexo d -g #生成并上传</code></pre>]]></content>
       
       
       <categories>
