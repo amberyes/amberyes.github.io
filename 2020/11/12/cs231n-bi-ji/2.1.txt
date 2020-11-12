@@ -1,0 +1,3 @@
+###监督学习和无监督学习区别：
+&nbsp;&nbsp;&nbsp;&nbsp;有无输出标记y的对应答案来训练模型  
+梯度是一个向量，它指向函数值上升最快![](/Users/apple/Downloads/231nMD/2.1.png)
