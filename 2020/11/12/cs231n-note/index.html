@@ -465,9 +465,19 @@
 E=1 \over 2\displaystyle \sum_k{(y_k-t_k)^2}</script><p>&nbsp;&nbsp;&nbsp;&nbsp;PS:$y_k$表示神经网络的输出，$t_k$表示监督数据，$k$表示数据的维数。</p>
 <h4 id="2-2-2-交叉熵误差"><a href="#2-2-2-交叉熵误差" class="headerlink" title="2.2.2 交叉熵误差"></a>2.2.2 交叉熵误差</h4><script type="math/tex; mode=display">
 E=​-\displaystyle \sum_k{y_klogy_k}</script><p> &nbsp;&nbsp;&nbsp;&nbsp;PS:$log$表示($log_e$)，$y_k$表示神经网络的输出，$t_k$表示正确解标签。</p>
-<h4 id="2-2-3-多类支持向量机损失-Multiclass-Support-Vector-Machine-Loss"><a href="#2-2-3-多类支持向量机损失-Multiclass-Support-Vector-Machine-Loss" class="headerlink" title="2.2.3 多类支持向量机损失 Multiclass Support Vector Machine Loss"></a>2.2.3 多类支持向量机损失 Multiclass Support Vector Machine Loss</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>SVM</strong>分类器想要SVM在正确分类上的得分始终比不正确分类上的得分高出一个边界值 Δ  ( Δ 值一般取1，代表间隔)。<br>&nbsp;&nbsp;&nbsp;&nbsp;SVM的损失函数：第i个数据中包含图像$x_i$的像素和代表正确类别的标签$y_i$。针对第j个类别的得分就是第j个元素：$s_j=f(x_i,W)_j$，针对第i个数据的多类SVM的损失函数定义如下：</p>
-<script type="math/tex; mode=display">
-L_i=\displaystyle\sum_{j\neq y_i}{max(1,s_j-s_{y_i}+1)}</script><h4 id="2-2-4-Softmax分类器"><a href="#2-2-4-Softmax分类器" class="headerlink" title="2.2.4 Softmax分类器"></a>2.2.4 Softmax分类器</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;Softmax分类器就可以理解为逻辑回归分类器面对多个分类的一般化归纳。SVM将输出[公式]作为每个分类的评分（因为无定标，所以难以直接解释）。<br>&nbsp;&nbsp;&nbsp;&nbsp;（1）Softmax函数：  </p>
+<h4 id="2-2-3-多类支持向量机损失-Multiclass-Support-Vector-Machine-Loss"><a href="#2-2-3-多类支持向量机损失-Multiclass-Support-Vector-Machine-Loss" class="headerlink" title="2.2.3 多类支持向量机损失 Multiclass Support Vector Machine Loss"></a>2.2.3 多类支持向量机损失 Multiclass Support Vector Machine Loss</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>SVM</strong>分类器想要SVM在正确分类上的得分始终比不正确分类上的得分高出一个边界值 Δ  ( Δ 值一般取1，代表间隔)。<br>&nbsp;&nbsp;&nbsp;&nbsp;SVM的损失函数：第i个数据中包含图像$x_i$的像素和代表正确类别的标签$y_i$。针对第j个类别的得分就是第j个元素：$s_j=f(x_i,W)_j$，针对第i个数据的多类SVM的损失函数定义如下：<br>
+</p><p>
+$$
+L_i=\displaystyle\sum_{j\neq y_i}{max(1,s_j-s_{y_i}+1)}
+$$
+</p>
+<script type="text/javascript" src="https://cdnjs.clouddlare.com/ajax/libs/mathjax/2.7.4/latest.js.config=Tex-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']]}});
+</script>
+<p></p>
+<h4 id="2-2-4-Softmax分类器"><a href="#2-2-4-Softmax分类器" class="headerlink" title="2.2.4 Softmax分类器"></a>2.2.4 Softmax分类器</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;Softmax分类器就可以理解为逻辑回归分类器面对多个分类的一般化归纳。SVM将输出[公式]作为每个分类的评分（因为无定标，所以难以直接解释）。<br>&nbsp;&nbsp;&nbsp;&nbsp;（1）Softmax函数：  </p>
 <script type="math/tex; mode=display">
 y_k={exp(a_k)} \over {\sum^n_{i=1}exp(a_i)}</script><p> &nbsp;&nbsp;&nbsp;&nbsp;PS:假设输出层共有n个神经元，计算第k个神经元的输出$y_k$。分子是输入信号$a_k$的指数函数，分母是所有输入信号的指数函数的和。<br> <img src="/2020/11/12/cs231n-note/2.4.jpg" alt=""><br> &nbsp;&nbsp;&nbsp;&nbsp;Softmax函数的缺陷:<strong>溢出问题</strong>。（$e^1000$的结果返回inf，在超大值之间进行除法运算，结果会出现“不确定”的情况。）<br> Softmax函数的改进：</p>
 <script type="math/tex; mode=display">
