@@ -438,7 +438,7 @@
                 <h1 id="解析深度学习"><a href="#解析深度学习" class="headerlink" title="解析深度学习"></a>解析深度学习</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;记录一些刚开始没理解的名词。</p>
 <h2 id="一-nbsp-nbsp-深度相比宽度，在网络复杂性中提升更有效"><a href="#一-nbsp-nbsp-深度相比宽度，在网络复杂性中提升更有效" class="headerlink" title="一&nbsp;&nbsp;深度相比宽度，在网络复杂性中提升更有效"></a>一&nbsp;&nbsp;深度相比宽度，在网络复杂性中提升更有效</h2><h3 id="1-1-nbsp-nbsp-网络深度"><a href="#1-1-nbsp-nbsp-网络深度" class="headerlink" title="1.1&nbsp;&nbsp;网络深度"></a>1.1&nbsp;&nbsp;网络深度</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>深度，即网络的层数，加深网络深度可以提升性能。</strong></p>
 <h4 id="1-1-1-nbsp-nbsp-更好地拟合特征"><a href="#1-1-1-nbsp-nbsp-更好地拟合特征" class="headerlink" title="1.1.1&nbsp;&nbsp;更好地拟合特征"></a>1.1.1&nbsp;&nbsp;更好地拟合特征</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;现在的深度学习网络结构的主要模块是卷积，池化，激活，这是一个标准的非线性变换模块。更深的模型，意味着更好的<strong>非线性</strong>表达能力，可以学习更加复杂的变换，从而可以拟合更加复杂的特征输入。</p>
-<h4 id="1-1-2-nbsp-nbsp-不同深度的网络层学习到不同特征"><a href="#1-1-2-nbsp-nbsp-不同深度的网络层学习到不同特征" class="headerlink" title="1.1.2 &nbsp;&nbsp;不同深度的网络层学习到不同特征"></a>1.1.2 &nbsp;&nbsp;不同深度的网络层学习到不同特征</h4><p><img src="/2020/11/17/analyze-deep-learning/v2.jpg" alt=""></p>
+<h4 id="1-1-2-nbsp-nbsp-不同深度的网络层学习到不同特征"><a href="#1-1-2-nbsp-nbsp-不同深度的网络层学习到不同特征" class="headerlink" title="1.1.2 &nbsp;&nbsp;不同深度的网络层学习到不同特征"></a>1.1.2 &nbsp;&nbsp;不同深度的网络层学习到不同特征</h4><p><img src="/2020/11/17/analyze-deep-learning/v2.jpg"></p>
 <h3 id="2-1-nbsp-nbsp-网络宽度"><a href="#2-1-nbsp-nbsp-网络宽度" class="headerlink" title="2.1&nbsp;&nbsp;网络宽度"></a>2.1&nbsp;&nbsp;网络宽度</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>宽度，即通道(channel)的数量，是让每一层学习到更加丰富的特征，比如不同方向，不同频率的纹理特征。</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;下面是AlexNet模型的第一个卷积层的96个通道，尽管其中有一些形状和纹理相似的卷积核(这将成为优化宽度的关键)，还是可以看到各种各种的模式。</p>
 <center>![](Analyze_deep_learning/16055770618482.jpg)</center>
 &nbsp;&nbsp;&nbsp;&nbsp;有的是彩色有的是灰色，说明有的侧重于提取纹理信息，有的侧重于提取颜色信息。
@@ -450,57 +450,39 @@
 * &nbsp;增加宽度对GPU更加友好。
 &nbsp;&nbsp;&nbsp;&nbsp;一般，**优先调整网络的宽度**。
 
-## 二&nbsp;&nbsp;低秩近似、奇异值分解
-### 2&nbsp;&nbsp;奇异值分解
-#### 2.1&nbsp;&nbsp;五个定理
-* 定理一：A是对称矩阵，则不同特征值对应的特征向量是正交的。
-* 定理二：矩阵和它的转置具有相同的特征值。
-* 定理三：半正定矩阵的特征值均大于等于零。
-* 定理四：若满足,则称是单位正交矩阵。
-* 定理五：若矩阵的秩为r，则和秩均为r。
-
-#### 2.2&nbsp;&nbsp;奇异值分解（SVD）
-&gt; [定义一]给定一个大小为 [公式] 的实对称矩阵 [公式] ，若对于任意长度为 [公式] 的非零向量 [公式] ，有 [公式] 恒成立，则矩阵 [公式] 是一个正定矩阵。
-
--------
-
-&gt; [定义二]给定一个大小为 [公式] 的实对称矩阵 [公式] ，若对于任意长度为 [公式] 的向量 [公式] ，有 [公式] 恒成立，则矩阵 [公式] 是一个半正定矩阵。
-
-&nbsp;&nbsp;&nbsp;&nbsp;设矩阵$X \in R^{mxn}$，秩为$r$，$r \leq min(m,n)$，则该矩阵可以分解为：
+<h2 id="二-nbsp-nbsp-低秩近似、奇异值分解"><a href="#二-nbsp-nbsp-低秩近似、奇异值分解" class="headerlink" title="二&nbsp;&nbsp;低秩近似、奇异值分解"></a>二&nbsp;&nbsp;低秩近似、奇异值分解</h2><h3 id="2-nbsp-nbsp-奇异值分解"><a href="#2-nbsp-nbsp-奇异值分解" class="headerlink" title="2&nbsp;&nbsp;奇异值分解"></a>2&nbsp;&nbsp;奇异值分解</h3><h4 id="2-1-nbsp-nbsp-五个定理"><a href="#2-1-nbsp-nbsp-五个定理" class="headerlink" title="2.1&nbsp;&nbsp;五个定理"></a>2.1&nbsp;&nbsp;五个定理</h4><ul>
+<li>定理一：A是对称矩阵，则不同特征值对应的特征向量是正交的。</li>
+<li>定理二：矩阵和它的转置具有相同的特征值。</li>
+<li>定理三：半正定矩阵的特征值均大于等于零。</li>
+<li>定理四：若满足,则称是单位正交矩阵。</li>
+<li>定理五：若矩阵的秩为r，则和秩均为r。</li>
+</ul>
+<h4 id="2-2-nbsp-nbsp-奇异值分解（SVD）"><a href="#2-2-nbsp-nbsp-奇异值分解（SVD）" class="headerlink" title="2.2&nbsp;&nbsp;奇异值分解（SVD）"></a>2.2&nbsp;&nbsp;奇异值分解（SVD）</h4><blockquote>
+<p>[定义一]给定一个大小为 [公式] 的实对称矩阵 [公式] ，若对于任意长度为 [公式] 的非零向量 [公式] ，有 [公式] 恒成立，则矩阵 [公式] 是一个正定矩阵。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>[定义二]给定一个大小为 [公式] 的实对称矩阵 [公式] ，若对于任意长度为 [公式] 的向量 [公式] ，有 [公式] 恒成立，则矩阵 [公式] 是一个半正定矩阵。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;设矩阵$X \in R^{mxn}$，秩为$r$，$r \leq min(m,n)$，则该矩阵可以分解为：</p>
 <center>$X=\left[ \begin{matrix} u_1 &amp; u_2 \cdots u_r\end{matrix} \right]\left[ \begin{matrix} \lambda_1 &amp; &amp; \\ &amp;\lambda_2 &amp; \\ &amp; &amp;\ddots\\ &amp; &amp; &amp; \lambda_r\\\end{matrix}\right]\left[ \begin{matrix} v^T_1 \\ v^T_2 \\\vdots \\ v^T_r\end{matrix} \right] $</center>
 &nbsp;&nbsp;&nbsp;&nbsp;也可表示为：
 <center>$X=\sum_{r=1}^n{\lambda_iu_iv^T_i}$</center>
 &nbsp;&nbsp;&nbsp;&nbsp;其中：$\lambda_i$为矩阵$XX^T$（或者$X^TX$）的非零向量,$u_i$为$XX^T$的对应特征向量，$v_i$为$X^TX$的对应特征向量，$\lambda_1 \ge \lambda_2 \ge···\lambda_r$。
 
-#### 2.3&nbsp;&nbsp;低秩近似
-<center>![](Analyze_deep_learning/v3.jpg)</center>
+<h4 id="2-3-nbsp-nbsp-低秩近似"><a href="#2-3-nbsp-nbsp-低秩近似" class="headerlink" title="2.3&nbsp;&nbsp;低秩近似"></a>2.3&nbsp;&nbsp;低秩近似</h4><center> ![](Analyze_deep_learning/v3.jpg) </center>
 &nbsp;&nbsp;&nbsp;&nbsp;对于现实中比较好的图片，往往秩比较低的，也就是图像比较规整，重点的突出点是有的，但是大部分像素是相似的；假如图片的秩很高，那结果就是图像杂乱无章，或者是噪声比较高。
 &nbsp;&nbsp;&nbsp;&nbsp;**因此，在做图像处理时，可以通过降低秩来去除图片中的噪点。**
 ## 三&nbsp;&nbsp;数据驱动 
 &nbsp;&nbsp;&nbsp;&nbsp;数据驱动是通过移动互联网或者其他的相关软件为手段采集海量的数据，将数据进行组织形成信息，之后对相关的信息进行整合和提炼，在数据的基础上经过训练和拟合形成**自动化**的决策模型。
 
-## 四&nbsp;&nbsp;激活函数
-&nbsp;&nbsp;&nbsp;&nbsp;参数化ReLu作为激活函数的网络要优于使用原始ReLU的网络，同时自由度较大的各通道独享参数的参数化ReLU性能更优。
-&nbsp;&nbsp;&nbsp;&nbsp;ReLU -&gt; Leaky ReLU、参数化ReLu、随机化ReLU和ELU
-
-## 五&nbsp;&nbsp;独热编码(one-hot)
-
-&nbsp;&nbsp;&nbsp;&nbsp;One-Hot编码是**分类变量**作为**二进制向量**的表示。这首先要求将分类值映射到整数值。然后，每个整数值被表示为二进制向量，除了整数的索引之外，它都是零值，它被标记为1。
-
-&nbsp;&nbsp;&nbsp;&nbsp;使用one-hot编码，将**离散特征的取值扩展到欧氏空间，离散特征的某个取值就对应欧式空间的某个点**，让特征之间的距离计算更加合理。
-
-&nbsp;&nbsp;&nbsp;&nbsp;不需要使用one-hot编码的情况：特征是离散的，并且不用one-hot编码就可以很合理地计算出距离，就没必要进行one-hot编码。
-&nbsp;&nbsp;&nbsp;&nbsp;参考：[帅帅的飞猪](https://www.cnblogs.com/shuaishuaidefeizhu/p/11269257.html)
-
-
-## 六&nbsp;&nbsp;泛化性 
-&nbsp;&nbsp;&nbsp;&nbsp;根据有限样本得到的网络模型对其他变量域也有良好的预测能力。
-## 七&nbsp;&nbsp;过拟合
-&nbsp;&nbsp;&nbsp;&nbsp;过拟合是指只能拟合训练数据，但不能很好地拟合不包含在训练数据中的其他数据的状态。
-&nbsp;&nbsp;&nbsp;&nbsp;原因：①模型拥有大量参数、表现力强；②训练数集少。
-
-&nbsp;&nbsp;抑制过拟合：
-&nbsp;&nbsp;①增加数据量；②适当减小参数数量：正则化（权值衰减）、dropout。
+<h2 id="四-nbsp-nbsp-激活函数"><a href="#四-nbsp-nbsp-激活函数" class="headerlink" title="四&nbsp;&nbsp;激活函数"></a>四&nbsp;&nbsp;激活函数</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;参数化ReLu作为激活函数的网络要优于使用原始ReLU的网络，同时自由度较大的各通道独享参数的参数化ReLU性能更优。<br>&nbsp;&nbsp;&nbsp;&nbsp;ReLU -&gt; Leaky ReLU、参数化ReLu、随机化ReLU和ELU</p>
+<h2 id="五-nbsp-nbsp-独热编码-one-hot"><a href="#五-nbsp-nbsp-独热编码-one-hot" class="headerlink" title="五&nbsp;&nbsp;独热编码(one-hot)"></a>五&nbsp;&nbsp;独热编码(one-hot)</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;One-Hot编码是<strong>分类变量</strong>作为<strong>二进制向量</strong>的表示。这首先要求将分类值映射到整数值。然后，每个整数值被表示为二进制向量，除了整数的索引之外，它都是零值，它被标记为1。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;使用one-hot编码，将<strong>离散特征的取值扩展到欧氏空间，离散特征的某个取值就对应欧式空间的某个点</strong>，让特征之间的距离计算更加合理。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;不需要使用one-hot编码的情况：特征是离散的，并且不用one-hot编码就可以很合理地计算出距离，就没必要进行one-hot编码。<br>&nbsp;&nbsp;&nbsp;&nbsp;参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/shuaishuaidefeizhu/p/11269257.html">帅帅的飞猪</a></p>
+<h2 id="六-nbsp-nbsp-泛化性"><a href="#六-nbsp-nbsp-泛化性" class="headerlink" title="六&nbsp;&nbsp;泛化性"></a>六&nbsp;&nbsp;泛化性</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;根据有限样本得到的网络模型对其他变量域也有良好的预测能力。</p>
+<h2 id="七-nbsp-nbsp-过拟合"><a href="#七-nbsp-nbsp-过拟合" class="headerlink" title="七&nbsp;&nbsp;过拟合"></a>七&nbsp;&nbsp;过拟合</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;过拟合是指只能拟合训练数据，但不能很好地拟合不包含在训练数据中的其他数据的状态。<br>&nbsp;&nbsp;&nbsp;&nbsp;原因：①模型拥有大量参数、表现力强；②训练数集少。</p>
+<p>&nbsp;&nbsp;抑制过拟合：<br>&nbsp;&nbsp;①增加数据量；②适当减小参数数量：正则化（权值衰减）、dropout。</p>
 <center>![](Analyze_deep_learning/v4.jpg)</center>
 
 
@@ -509,9 +491,7 @@
 <center>![](Analyze_deep_learning/v5.png)</center>
 &nbsp;&nbsp;&nbsp;&nbsp;我们使用loU看检测是否正确需要设定一个阈值，最常用的阈值是0.5，即如果loU&gt;0.5，则认为是真实的检测(true detection)，否则认为是错误的检测(false detection)。
 
-### 8.2&nbsp;&nbsp;MAP(Mean Average Precision)
-&nbsp;&nbsp;&nbsp;&nbsp;均值平均精度(Mean Average Precision)特别适用于我们预测目标与类的位置的算法。同时均值平均值对于评估模型定位性能、目标监测模型性能和分割模型性能都是有用的。
-&nbsp;&nbsp;&nbsp;&nbsp;MAP=所有类别的平均精度求和除以所有类别，即数据集中所有类的平均精度的平均值。
+<h3 id="8-2-nbsp-nbsp-MAP-Mean-Average-Precision"><a href="#8-2-nbsp-nbsp-MAP-Mean-Average-Precision" class="headerlink" title="8.2&nbsp;&nbsp;MAP(Mean Average Precision)"></a>8.2&nbsp;&nbsp;MAP(Mean Average Precision)</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;均值平均精度(Mean Average Precision)特别适用于我们预测目标与类的位置的算法。同时均值平均值对于评估模型定位性能、目标监测模型性能和分割模型性能都是有用的。<br>&nbsp;&nbsp;&nbsp;&nbsp;MAP=所有类别的平均精度求和除以所有类别，即数据集中所有类的平均精度的平均值。</p>
 <center>![](Analyze_deep_learning/v8.png)</center>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zongfa/p/9783972.html">https://www.cnblogs.com/zongfa/p/9783972.html</a><br>&nbsp;&nbsp;&nbsp;&nbsp;使用MAP值时我们需要满足一下条件： </p>
