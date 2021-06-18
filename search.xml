@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>《NTIRE 2020 Challenge on NonHomogeneous Dehazing》阅读笔记</title>
+      <link href="2021/06/18/ntire2020/"/>
+      <url>2021/06/18/ntire2020/</url>
+      
+        <content type="html"><![CDATA[<h1 id="NTIRE-2020-Challenge-on-NonHomogeneous-Dehazing"><a href="#NTIRE-2020-Challenge-on-NonHomogeneous-Dehazing" class="headerlink" title="NTIRE 2020 Challenge on NonHomogeneous Dehazing"></a>NTIRE 2020 Challenge on NonHomogeneous Dehazing</h1><p>[TOC]</p><h2 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h2><ul><li>NH-Haze: 55对不同的室外有不均质雾图(5456×3632 with 24 bit depth)</li><li>DenseHaze，O-Haze</li></ul><h2 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h2><ul><li>PSNR</li><li>SSIM</li><li>LPIPS</li><li>PI</li><li>MOS</li></ul><h2 id="Architectures"><a href="#Architectures" class="headerlink" title="Architectures"></a>Architectures</h2><ul><li>U-Net, ResNet, DenseNet and Inception</li></ul><h2 id="Modths"><a href="#Modths" class="headerlink" title="Modths"></a>Modths</h2><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607185116308.png" alt="image-20210607185116308"></p><h3 id="Trident-Dehazing-Network-TDN-☑️"><a href="#Trident-Dehazing-Network-TDN-☑️" class="headerlink" title="Trident Dehazing Network (TDN)☑️"></a>Trident Dehazing Network (TDN)☑️</h3><p>问题：</p><ul><li>对非均质雾没有鲁棒性</li><li>浓雾区域的信息难以估计</li></ul><p>主要思想：</p><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210618202751577.png" alt="image-20210618202751577"></p><p>技术路线：</p><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607182010730.png" alt="image-20210607182010730"></p><p>==HDMGN子网的本质为求T图==</p><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607182107545.png" alt="image-20210607182107545"></p><h3 id="ECNU-KT☑️"><a href="#ECNU-KT☑️" class="headerlink" title="ECNU-KT☑️"></a>ECNU-KT☑️</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607182157927.png" alt="image-20210607182157927"></p><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607182223827.png" alt="image-20210607182223827"></p><h3 id="dehaze-sneaker"><a href="#dehaze-sneaker" class="headerlink" title="dehaze sneaker"></a>dehaze sneaker</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607182311549.png" alt="image-20210607182311549"></p><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607182322271.png" alt="image-20210607182322271"></p><h3 id="Spider"><a href="#Spider" class="headerlink" title="Spider"></a>Spider</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607182505058.png" alt="image-20210607182505058"></p><h3 id="NTU-Dehazing"><a href="#NTU-Dehazing" class="headerlink" title="NTU Dehazing"></a>NTU Dehazing</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607182555725.png" alt="image-20210607182555725"></p><h3 id="VICLAB-DoNET"><a href="#VICLAB-DoNET" class="headerlink" title="VICLAB-DoNET"></a>VICLAB-DoNET</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607182608095.png" alt="image-20210607182608095"></p><h3 id="iPAL-NonLocal☑️"><a href="#iPAL-NonLocal☑️" class="headerlink" title="iPAL-NonLocal☑️"></a>iPAL-NonLocal☑️</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607184514886.png" alt="image-20210607184514886"></p><h3 id="Team-JJ"><a href="#Team-JJ" class="headerlink" title="Team JJ"></a>Team JJ</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607184546494.png" alt="image-20210607184546494"></p><h3 id="iPAL-EDN☑️"><a href="#iPAL-EDN☑️" class="headerlink" title="iPAL-EDN☑️"></a>iPAL-EDN☑️</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607184610937.png" alt="image-20210607184610937"></p><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607184609255.png" alt="image-20210607184609255"></p><h3 id="NTUEE-LINLAB"><a href="#NTUEE-LINLAB" class="headerlink" title="NTUEE LINLAB"></a>NTUEE LINLAB</h3><p>​    The method is based on a encoder-decoder generator model with a multi-scale kernel encoder in the front (size is 3, 5, and 7). It is trained with part of the densenet-161. Next, the authors used BicycleGAN to enhance the generator. The hazy image and the difference of the hazy image and ground truth are used as the input when training the cVAE-GAN Encoder.</p><h3 id="NTUST-merg"><a href="#NTUST-merg" class="headerlink" title="NTUST-merg"></a>NTUST-merg</h3><p>​    The proposed method is based on the At − DH Network as the backbone network. The authors used use DenseNet as the pretrained model in the encoder network. On the other hand, they employed the similar structure of the DenseNet with additional residual block in the decoder network. They used two decoders to estimate A (atmosphere light) and t(transmission map). Moreover, L2 loss and perceptual loss were used as loss functions. In the loss term, they both only calculate the estimated haze-free image and ground truth loss.</p><h3 id="SIAT"><a href="#SIAT" class="headerlink" title="SIAT"></a>SIAT</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607184740764.png" alt="image-20210607184740764"></p><h3 id="neptuneai"><a href="#neptuneai" class="headerlink" title="neptuneai"></a>neptuneai</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607184803356.png" alt="image-20210607184803356"></p><h3 id="Neuro-avengers☑️"><a href="#Neuro-avengers☑️" class="headerlink" title="Neuro-avengers☑️"></a>Neuro-avengers☑️</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607184824896.png" alt="image-20210607184824896"></p><h3 id="NITREXZ"><a href="#NITREXZ" class="headerlink" title="NITREXZ"></a>NITREXZ</h3><p>he proposed model contains a standard generative adversarial network. </p><h3 id="AISAIL"><a href="#AISAIL" class="headerlink" title="AISAIL"></a>AISAIL</h3><p>DeBlurGAN</p><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607184921495.png" alt="image-20210607184921495"></p><h3 id="ICAIS-dehaze"><a href="#ICAIS-dehaze" class="headerlink" title="ICAIS dehaze"></a>ICAIS dehaze</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607184940521.png" alt="image-20210607184940521"></p><h3 id="RETINA"><a href="#RETINA" class="headerlink" title="RETINA"></a>RETINA</h3><p>This approach, named spatio-temporal retinex-inspired by an averaging of stochastic samples (STRASS) , is based on the spatio-temporal envelope retinex-inspired with a stochastic sampling framework (STRESS) [32] and also from the random spray retinex (RSR) [46]. In this work,</p><p>the authors used the idea of the relation developed in [19] replacing the envelope structure of the samples used in [32] by an average of these samples. Due to the local properties of the algorithm, this modified computation in the frame- work also impacted regions of the image far from the cam- era.</p><h3 id="hazefreeworld"><a href="#hazefreeworld" class="headerlink" title="hazefreeworld"></a>hazefreeworld</h3><p><img src="/2021/06/18/ntire2020/amber/Blog/source/_posts/Ntire2020/image-20210607185036447.png" alt="image-20210607185036447"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> deep learning </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NTIRE 2020 </tag>
+            
+            <tag> Dehaze </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《解析深度学习》阅读笔记</title>
       <link href="2020/11/17/analyze-deep-learning/"/>
       <url>2020/11/17/analyze-deep-learning/</url>
@@ -47,9 +74,9 @@
       
         <tags>
             
-            <tag> CS231n </tag>
-            
             <tag> deep learning </tag>
+            
+            <tag> CS231n </tag>
             
         </tags>
       
