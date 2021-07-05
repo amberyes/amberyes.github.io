@@ -472,7 +472,8 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;Momentum更新路径就像小球在碗中滚动一样。和SGD相比，可以更快地朝$x$轴方向靠近，<strong>减弱“之”字形的变动程度</strong>。<br><img src="/2020/11/12/cs231n-note/2.7.jpeg"><br><strong>策略#5：AdaGrad</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>学习率衰减：</strong>随着学习的进行，是学习率追渐减小。<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>AdaGrad：</strong>为参数的每个元素适当调整学习率，与此同时进行学习。<br>&nbsp;&nbsp;&nbsp;&nbsp;公式：<br>$$<br>h{\leftarrow}h+{\frac{\partial L}{\partial W}} \cdot {\frac{\partial L}{\partial W}}<br>$$</p>
 <p>$$<br>W{\leftarrow}W-\eta{1 \over \sqrt h}{\frac{\partial L}{\partial W}}<br>$$</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>如图</strong>，函数的取值高效地向着最小值移动。由于$y$轴方向上的梯度较大，因此刚开始变动较大，但是后面会根据这个较大的变动按比例进行调整，减小更新的步伐。因此，$y$轴方向上的更新程度被减弱，<strong>“之”字形的变动程度有所衰减。</strong><br><img src="/2020/11/12/cs231n-note/2.8.jpeg"><br><strong>策略#6：Adam</strong>     </p>
-<p>​</p><center><label style="color:red">Adam=Momentum+AdaGrad**</label></center><p></p>
+<center><label style="color:red">Adam=Momentum+AdaGrad**</label></center>
+
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Momentum</strong>参照小球在碗中滚动的物理规则进行移动，<strong>AdaGrad</strong>为参数的每个元素适当地调整更新步伐。两者融合就是<strong>Adam</strong>方法的基本思路。<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Adam的特征</strong>：进行超参数的“<label style="color:green">偏置校正</label>”。<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>如图</strong>，相比Momentum，Adam的小球左右摇晃的程度有所减轻。</p>
 <p><img src="/2020/11/12/cs231n-note/2.9.jpeg"></p>
 <h2 id="三、神经网络与反向传播"><a href="#三、神经网络与反向传播" class="headerlink" title="三、神经网络与反向传播"></a>三、神经网络与反向传播</h2><h3 id="3-1-神经网络-Neural-Network"><a href="#3-1-神经网络-Neural-Network" class="headerlink" title="3.1 神经网络 Neural Network"></a>3.1 神经网络 Neural Network</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>如图</strong>，神经网络的例子：<br><img src="/2020/11/12/cs231n-note/3.1.jpeg"><br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>如图</strong>，显示<strong>激活函数</strong>的计算过程：<br><img src="/2020/11/12/cs231n-note/3.2.jpeg"> </p>
